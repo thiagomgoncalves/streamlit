@@ -26,4 +26,3 @@ if city:
     # Display temperature information to user
     st.write(f"Temperature in {city}: {temperature}°C")
     st.write(f"Feels like: {feels_like}°C") 
-    
