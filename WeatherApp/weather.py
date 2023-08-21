@@ -1,11 +1,6 @@
+
 import requests
 import streamlit as st
-
-# API key for OpenWeatherMap
-API_KEY = "aebc4e75af3e60585255ce6f06afea5c"
-
-# URL for OpenWeatherMap API
-API_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 # Streamlit app title
 st.title("Weather App")
@@ -13,16 +8,29 @@ st.title("Weather App")
 # User input for city name
 city = st.text_input("Enter city name:")
 
-# Make API call to OpenWeatherMap
+# Make API call to weather API
 if city:
-    params = {"q": city, "appid": API_KEY, "units": "metric"}
-    response = requests.get(API_URL, params=params)
+    # API endpoint and parameters
+    url = f"https://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "q": city,
+        "appid": "aebc4e75af3e60585255ce6f06afea5c",
+        "units": "metric"
+    }
+
+    # Send GET request to the API
+    response = requests.get(url, params=params)
     data = response.json()
 
     # Extract temperature information from JSON response
-    temperature = data["main"]["temp"]
-    feels_like = data["main"]["feels_like"]
+    if response.status_code == 200:
+        temperature = data["main"]["temp"]
+        feels_like = data["main"]["feels_like"]
+        description = data["weather"][0]["description"]
 
-    # Display temperature information to user
-    st.write(f"Temperature in {city}: {temperature}°C")
-    st.write(f"Feels like: {feels_like}°C") 
+        # Display weather information to the user
+        st.write(f"Temperature in {city}: {temperature}°C")
+        st.write(f"Feels like: {feels_like}°C")
+        st.write(f"Description: {description}")
+    else:
+        st.write("Error: Unable to retrieve weather information.")
