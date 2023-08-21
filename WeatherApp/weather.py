@@ -1,12 +1,11 @@
-
 import requests
 import streamlit as st
 
 # Streamlit app title
-st.title("Weather App")
+st.title("Weather")
 
 # User input for city name
-city = st.text_input("Enter city name:")
+city = st.text_input("Cidade:")
 
 # Make API call to weather API
 if city:
@@ -15,7 +14,8 @@ if city:
     params = {
         "q": city,
         "appid": "aebc4e75af3e60585255ce6f06afea5c",
-        "units": "metric"
+        "lang":"pt",
+        "units":"metric"
     }
 
     # Send GET request to the API
@@ -29,8 +29,8 @@ if city:
         description = data["weather"][0]["description"]
 
         # Display weather information to the user
-        st.write(f"Temperature in {city}: {temperature}°C")
-        st.write(f"Feels like: {feels_like}°C")
-        st.write(f"Description: {description}")
+        st.write(f"Temperatura em {city}: {temperature}°C")
+        st.write(f"Sensação: {feels_like}°C")
+        st.write(f"Descrição: {description}")
     else:
         st.write("Error: Unable to retrieve weather information.")
