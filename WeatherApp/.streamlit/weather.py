@@ -1,6 +1,7 @@
 import requests
 import streamlit as st
 
+
 # Streamlit app title
 st.title("Weather")
 
